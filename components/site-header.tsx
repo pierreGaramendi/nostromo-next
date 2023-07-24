@@ -19,12 +19,7 @@ export function SiteHeader() {
               target="_blank"
               rel="noreferrer"
             >
-              <div
-                className={buttonVariants({
-                  size: "icon",
-                  variant: "ghost",
-                })}
-              >
+              <div className={buttonVariants({ size: "icon", variant: "ghost" })} >
                 <Icons.gitHub className="h-5 w-5" />
                 <span className="sr-only">GitHub</span>
               </div>
@@ -47,7 +42,7 @@ export function SiteHeader() {
             <ThemeToggle />
           </nav>
         </div>
-       
+
       </div>
     </header>
   )

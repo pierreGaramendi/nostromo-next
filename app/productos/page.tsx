@@ -8,7 +8,7 @@ export async function getData() {
 const ProductsResults = async () => {
     let data: any = await getData()
     return (
-        <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10 grid-cols-3">
+        <section className="container grid gap-x-1 gap-y-7 pt-6 md:py-10 grid-cols-3">
             {data.results.map((product: any) => {
                 return <ProductItem key={product.name} product={product}></ProductItem>
             }
