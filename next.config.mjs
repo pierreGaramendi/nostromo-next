@@ -4,6 +4,9 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  env:{
+    urlapi: 'https://pokeapi.co/api/v2/pokemon'
+  }
 }
 
 export default nextConfig
