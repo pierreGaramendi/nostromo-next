@@ -1,16 +1,14 @@
 'use client'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select"
+import { getQueriesSearch } from "@/constants/pagination/pagination.constants"
 import { useRouter } from 'next/navigation'
-import { useSearchParams } from 'next/navigation'
 
 const OrderBy = () => {
     const router = useRouter()
-    const searchParams = useSearchParams()
-    const search = searchParams.get('search')
-    const order = searchParams.get('order') || 'mp'
-    const next = searchParams.get('next')
+    const { search, next, order, limit } = getQueriesSearch()
+    console.log(search)
     const setValue = (value: any) => {
-        router.push(`/productos?search=${search}&next=${next}&order=${value}`)
+        router.push(`/productos?search=${search}&next=${next}&order=${value}&limit=${limit}`)
     }
     return (
         <div>
