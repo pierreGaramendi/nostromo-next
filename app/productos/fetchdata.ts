@@ -1,6 +1,6 @@
 export async function getData() {
     const res = await fetch(
-        `${process.env.urlapi}?limit=6&offset=0`
+        `${process.env.urlapipoke}?limit=6&offset=0`
         + new URLSearchParams({
             foo: 'value',
             bar: '2',

@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation'
 const OrderBy = () => {
     const router = useRouter()
     const { search, next, order, limit } = getQueriesSearch()
-    console.log(search)
     const setValue = (value: any) => {
         router.push(`/productos?search=${search}&next=${next}&order=${value}&limit=${limit}`)
     }

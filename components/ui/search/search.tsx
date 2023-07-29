@@ -73,7 +73,6 @@ export function MultiSelect({ label = "Select an item", placeholder = "Select an
                         <div className="absolute w-full top-0 rounded-md border bg-popover text-popover-foreground shadow-md outline-none animate-in">
                             <CommandGroup className="h-full overflow-auto">
                                 {data.map((framework) => {
-                                    console.log(framework,'=====')
                                     return (
                                         <CommandItem
                                             key={framework._id}

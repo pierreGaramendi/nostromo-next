@@ -5,8 +5,8 @@ const nextConfig = {
     appDir: true,
   },
   env: {
-    urlapi: 'https://pokeapi.co/api/v2/pokemon',
-    urlapipoke: 'http://localhost:8000/api/'
+    urlapipoke: 'https://pokeapi.co/api/v2/pokemon',
+    urlapi: 'http://localhost:8000/api/'
   }
 }
 
