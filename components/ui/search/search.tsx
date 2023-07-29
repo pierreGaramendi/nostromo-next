@@ -1,35 +1,29 @@
 "use client";
-
-import { X } from "lucide-react";
+import { useEffect } from "react";
 import * as React from "react";
-
 import clsx from "clsx";
 import { Command as CommandPrimitive } from "cmdk";
-import { Badge } from "components/ui/badge";
 import { Command, CommandGroup, CommandItem } from "components/ui/command";
-import { Label } from "@/components/ui/label";
 
 type DataItem = Record<"value" | "label", string>;
 
-export function MultiSelect({
-    label = "Select an item",
-    placeholder = "Select an item",
-    parentClassName,
-    data,
-}: {
+export function MultiSelect({ label = "Select an item", placeholder = "Select an item", parentClassName, data, onKeyPressed }: {
     label?: string;
     placeholder?: string;
     parentClassName?: string;
-    data: DataItem[];
+    data: any[];
+    onKeyPressed: any
 }) {
     const inputRef = React.useRef<HTMLInputElement>(null);
     const [open, setOpen] = React.useState(false);
     const [selected, setSelected] = React.useState<DataItem[]>([]);
     const [inputValue, setInputValue] = React.useState("");
 
-    const handleUnselect = React.useCallback((item: DataItem) => {
-        setSelected((prev) => prev.filter((s) => s.value !== item.value));
-    }, []);
+    useEffect(() => {
+        if (inputValue !== '') {
+            onKeyPressed(inputValue)
+        }
+    }, [inputValue]);
 
     const handleKeyDown = React.useCallback(
         (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -53,48 +47,13 @@ export function MultiSelect({
         []
     );
 
-    const selectables = data.filter((item) => !selected.includes(item));
-
+    //const selectables = data;
+        console.log(data)
     return (
-        <div
-            className={clsx(
-                label && "gap-1.5",
-                parentClassName,
-                "grid w-full items-center"
-            )}
-        >
-            {label && (
-                <Label className="text-[#344054] text-sm font-medium">{label}</Label>
-            )}
-            <Command
-                onKeyDown={handleKeyDown}
-                className="overflow-visible bg-transparent"
-            >
-                <div className="group border border-input px-3 py-2 text-sm ring-offset-background rounded-md focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
+        <div className={clsx(label && "gap-1.5", parentClassName, "w-full items-center flex justify-center")}>
+            <Command onKeyDown={handleKeyDown} className="overflow-visible bg-transparent">
+                <div className="group border border-input px-3 py-2 text-sm ring-offset-background rounded-md">
                     <div className="flex gap-1 flex-wrap">
-                        {selected.map((item, index) => {
-                            if (index > 1) return;
-                            return (
-                                <Badge key={item.value} variant="secondary">
-                                    {item.label}
-                                    <button
-                                        className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                                        onKeyDown={(e) => {
-                                            if (e.key === "Enter") {
-                                                handleUnselect(item);
-                                            }
-                                        }}
-                                        onMouseDown={(e) => {
-                                            e.preventDefault();
-                                            e.stopPropagation();
-                                        }}
-                                        onClick={() => handleUnselect(item)}
-                                    >
-                                        <X className="h-3 w-3 text-muted-foreground hover:text-foreground" />
-                                    </button>
-                                </Badge>
-                            );
-                        })}
                         {selected.length > 2 && <p>{`+${selected.length - 2} more`}</p>}
                         {/* Avoid having the "Search" Icon */}
                         <CommandPrimitive.Input
@@ -103,29 +62,32 @@ export function MultiSelect({
                             onValueChange={setInputValue}
                             onBlur={() => setOpen(false)}
                             onFocus={() => setOpen(true)}
+                            onClick={() => setOpen(true)}
                             placeholder={placeholder}
                             className="ml-2 bg-transparent outline-none placeholder:text-muted-foreground flex-1"
                         />
                     </div>
                 </div>
-                <div className="relative mt-2">
-                    {open && selectables.length > 0 ? (
+                <div className='relative'>
+                    {open && data.length > 0 ? (
                         <div className="absolute w-full top-0 rounded-md border bg-popover text-popover-foreground shadow-md outline-none animate-in">
                             <CommandGroup className="h-full overflow-auto">
-                                {selectables.map((framework) => {
+                                {data.map((framework) => {
+                                    console.log(framework,'=====')
                                     return (
                                         <CommandItem
-                                            key={framework.value}
+                                            key={framework._id}
                                             onMouseDown={(e) => {
                                                 e.preventDefault();
                                                 e.stopPropagation();
                                             }}
                                             onSelect={(value: any) => {
-                                                setInputValue("");
-                                                setSelected((prev) => [...prev, framework]);
+                                                setInputValue(value);
+                                                setOpen(false)
+                                                //setSelected((prev) => [...prev, framework]);
                                             }}
                                         >
-                                            {framework.label}
+                                            {framework.suggestion}
                                         </CommandItem>
                                     );
                                 })}

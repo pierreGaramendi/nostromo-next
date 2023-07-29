@@ -4,8 +4,9 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
-  env:{
-    urlapi: 'https://pokeapi.co/api/v2/pokemon'
+  env: {
+    urlapi: 'https://pokeapi.co/api/v2/pokemon',
+    urlapipoke: 'http://localhost:8000/api/'
   }
 }
 
