@@ -1,25 +1,37 @@
 'use client'
 import { Button } from "@/components/ui/button"
-import { ChevronRight } from "lucide-react"
+import { getQueriesSearch } from "@/constants/pagination/pagination.constants"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
 
-const SearchPagination = () => {
-    const searchParams = useSearchParams()
-    const search = searchParams.get('search')
-    const order = searchParams.get('order') || 'mp'
-    const next = searchParams.get('next')
+const SearchPagination = ({ pagination }: any) => {
+    const { search, sort } = getQueriesSearch()
+    const { totalDocs, totalPages, page, pagingCounter, hasPrevPage, hasNextPage, prevPage, nextPage } = pagination
     return (
         <div className="p-6 flex justify-center flex-row">
-            <Button variant="outline" disabled>1</Button>
+            {
+                hasPrevPage && (
+                    <Link href={`/productos?search=${search}&page=${prevPage}&sort=${sort}`}>
+                        <Button variant="outline" className="mr-2">
+                            <ChevronLeft size={18} />
+                            Anterior
+                        </Button>
+                    </Link>
+                )
+            }
+            <Button variant="outline" disabled>{page}</Button>
             <div className="flex justify-center items-center px-2">de</div>
-            <Button variant="outline" className="mr-2" disabled>8</Button>
-            <Link href={`/productos?search=${search}&next=${next}&order=${order}`}>
-                <Button variant="outline">
-                    Siguiente
-                    <ChevronRight size={18} />
-                </Button>
-            </Link>
+            <Button variant="outline" className="mr-2" disabled>{totalPages}</Button>
+            {
+                hasNextPage && (
+                    <Link href={`/productos?search=${search}&page=${nextPage}&sort=${sort}`}>
+                        <Button variant="outline">
+                            Siguiente
+                            <ChevronRight size={18} />
+                        </Button>
+                    </Link>
+                )
+            }
         </div>
     );
 }

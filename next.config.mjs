@@ -5,8 +5,14 @@ const nextConfig = {
     appDir: true,
   },
   env: {
-    urlapipoke: 'https://pokeapi.co/api/v2/pokemon',
     urlapi: 'http://localhost:8000/api/'
+  },
+  images:{
+    remotePatterns:[
+      {
+        hostname:'http2.mlstatic.com'
+      }
+    ]
   }
 }
 

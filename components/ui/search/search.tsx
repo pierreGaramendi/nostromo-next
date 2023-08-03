@@ -7,12 +7,13 @@ import { Command, CommandGroup, CommandItem } from "components/ui/command";
 
 type DataItem = Record<"value" | "label", string>;
 
-export function MultiSelect({ label = "Select an item", placeholder = "Select an item", parentClassName, data, onKeyPressed }: {
+export function MultiSelect({ label = "Select an item", placeholder = "Select an item", parentClassName, data, onKeyPressed, onSelected }: {
     label?: string;
     placeholder?: string;
     parentClassName?: string;
     data: any[];
-    onKeyPressed: any
+    onKeyPressed: any,
+    onSelected: any
 }) {
     const inputRef = React.useRef<HTMLInputElement>(null);
     const [open, setOpen] = React.useState(false);
@@ -27,6 +28,7 @@ export function MultiSelect({ label = "Select an item", placeholder = "Select an
 
     const handleKeyDown = React.useCallback(
         (e: React.KeyboardEvent<HTMLDivElement>) => {
+            console.log('ufcccccccccccccccccc', e.key)
             const input = inputRef.current;
             if (input) {
                 if (e.key === "Delete" || e.key === "Backspace") {
@@ -42,13 +44,15 @@ export function MultiSelect({ label = "Select an item", placeholder = "Select an
                 if (e.key === "Escape") {
                     input.blur();
                 }
+                if (e.key === "Enter") {
+                    console.log('========================', inputValue)
+                    onSelected(inputValue)
+                }
             }
         },
         []
     );
 
-    //const selectables = data;
-        console.log(data)
     return (
         <div className={clsx(label && "gap-1.5", parentClassName, "w-full items-center flex justify-center")}>
             <Command onKeyDown={handleKeyDown} className="overflow-visible bg-transparent">
@@ -77,12 +81,15 @@ export function MultiSelect({ label = "Select an item", placeholder = "Select an
                                         <CommandItem
                                             key={framework._id}
                                             onMouseDown={(e) => {
+                                                //console.log('whats this',e)
                                                 e.preventDefault();
                                                 e.stopPropagation();
                                             }}
                                             onSelect={(value: any) => {
+                                                //console.log('enter?',value)
+                                                onSelected(value)
                                                 setInputValue(value);
-                                                setOpen(false)
+                                                setOpen(false);
                                                 //setSelected((prev) => [...prev, framework]);
                                             }}
                                         >

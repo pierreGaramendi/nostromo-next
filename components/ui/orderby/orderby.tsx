@@ -5,13 +5,13 @@ import { useRouter } from 'next/navigation'
 
 const OrderBy = () => {
     const router = useRouter()
-    const { search, next, order, limit } = getQueriesSearch()
+    const { search, page, sort } = getQueriesSearch()
     const setValue = (value: any) => {
-        router.push(`/productos?search=${search}&next=${next}&order=${value}&limit=${limit}`)
+        router.push(`/productos?search=${search}&page=${page}&sort=${value}`)
     }
     return (
         <div>
-            <Select onValueChange={setValue} defaultValue={order}>
+            <Select onValueChange={setValue} defaultValue={sort}>
                 <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder="Select a fruit" />
                 </SelectTrigger>
