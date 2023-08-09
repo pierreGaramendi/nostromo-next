@@ -24,7 +24,7 @@ const ProductsResults = async ({
           <div className="text-sm text-gray-900 dark:text-white mr-2">
             Ordenar por:{JSON.stringify(searchParams)}{" "}
           </div>
-          <OrderBy></OrderBy>
+         {/*  <OrderBy></OrderBy> */}
         </div>
       </div>
       <div className="grid gap-x-1 gap-y-7 grid-cols-3 justify-center">

@@ -84,7 +84,7 @@ export const AutoComplete = ({
     )
 
     return (
-        <CommandPrimitive onKeyDown={handleKeyDown} shouldFilter={false}
+        <CommandPrimitive onKeyDown={handleKeyDown} shouldFilter={false} loop
         >
             <div>
                 <CommandInput
